@@ -1,0 +1,31 @@
+[package]
+name = "osc-repeater"
+version = "0.1.0"
+edition = "2021"
+authors = ["CyCore Systems"]
+description = "High-performance OSC message repeater in Rust"
+license = "Apache-2.0"
+
+[[bin]]
+name = "osc-repeater"
+path = "src/main.rs"
+
+[[bin]]
+name = "osc-send-all"
+path = "src/send_all.rs"
+
+[dependencies]
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.9"
+thiserror = "1.0"
+clap = { version = "4.0", features = ["derive"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+anyhow = "1.0"
+
+[profile.release]
+lto = true
+panic = "abort"
+strip = true
+codegen-units = 1
