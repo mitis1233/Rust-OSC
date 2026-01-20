@@ -1,0 +1,23 @@
+{
+	"source": "builtin",
+	"applications": [
+		{
+			"app_key": "osc.repeater",
+			"launch_type": "binary",
+			"binary_path_windows": "osc-repeater.exe",
+			"is_dashboard_overlay": false,
+			"action_manifest_path": "actions.json",
+
+			"strings": {
+				"en_us": {
+					"name": "OSC Repeater",
+					"description": "High-performance OSC message repeater for VRChat and other OSC applications"
+				},
+				"zh_tw": {
+					"name": "OSC 轉發器",
+					"description": "高效能 OSC 訊息轉發器，適用於 VRChat 與其他 OSC 應用程式"
+				}
+			}
+		}
+	]
+}
