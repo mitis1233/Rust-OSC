@@ -7,9 +7,10 @@
 - ✅ **多埠口監聽**：同時監聽多個 OSC 埠口
 - ✅ **多目標轉發**：將訊息轉發到多個目標伺服器
 - ✅ **高效能**：基於 Rust 的零成本抽象和異步 I/O
-- ✅ **單一執行**單一執行檔**：靜態連結，無外部依賴
+- ✅ **單一執行檔**：靜態連結，無外部依賴
 - ✅ **配置檔案支援**：YAML 格式配置
 - ✅ **優雅關閉**：支援 Ctrl+C 信號處理
+- ✅ **低延遲優化**：Sender 重用 UDP Socket + 單次序列化廣播
 
 ## 效能優勢
 
@@ -60,20 +61,17 @@ targets:
 
 ## 測試工具
 
-### 發送測試訊息
+### 發送測試訊息（osc-send-all）
 
 ```bash
-# 基本測試
-./target/release/osc-send -p 8080 -a /test -i 101
+# 整數
+./target/release/osc-send-all 9001 /test_int 123
 
-# 發送浮點數
-./target/release/osc-send -p 8080 -a /volume -f 0.75
+# 浮點數（含負數）
+./target/release/osc-send-all 9001 /test_float -456.789
 
-# 發送字串
-./target/release/osc-send -p 8080 -a /message -s "Hello World"
-
-# 發送到不同主機
-./target/release/osc-send -h 192.168.1.100 -p 8080 -a /test -i 42
+# 字串
+./target/release/osc-send-all 9001 /test_string "Hello World 中文測試"
 ```
 
 ## 命令列選項
@@ -84,14 +82,15 @@ targets:
 - `-d, --debug`：啟用除錯日誌
 - `-h, --help`：顯示說明資訊
 
-### osc-send
+### osc-send-all
 
-- `-p, --port <PORT>`：目標埠口（預設：8080）
-- `-h, --host <HOST>`：目標主機（預設：127.0.0.1）
-- `-a, --address <ADDR>`：OSC 位址（預設：/test）
-- `-i, --int <VALUE>`：整數參數
-- `-f, --float <VALUE>`：浮點數參數
-- `-s, --string <VALUE>`：字串參數
+```
+osc-send-all <port> <address> <value>
+```
+
+- `<port>`：目標埠口
+- `<address>`：OSC 位址
+- `<value>`：自動判斷型別（int/float/string），支援負數
 
 ## 架構設計
 
