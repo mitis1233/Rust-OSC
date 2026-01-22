@@ -11,6 +11,7 @@
 - ✅ **配置檔案支援**：YAML 格式配置
 - ✅ **優雅關閉**：支援 Ctrl+C 信號處理
 - ✅ **低延遲優化**：Sender 重用 UDP Socket + 單次序列化廣播
+- ✅ **自動最小化**：Windows 下啟動時自動最小化視窗
 
 ## 效能優勢
 
@@ -32,6 +33,15 @@ cargo build
 # Release 版本（推薦）
 cargo build --release
 ```
+
+### 編譯最佳化
+
+專案使用以下 Release 最佳化設定：
+- `opt-level = 3`：最高效能最佳化
+- `lto = true`：連結時最佳化
+- `panic = "abort"`：減少 panic unwind 成本
+- `strip = true`：移除除錯符號
+- `codegen-units = 1`：更強最佳化
 
 ### 2. 配置檔案
 
@@ -79,7 +89,11 @@ targets:
 ### osc-repeater
 
 - `-c, --config <FILE>`：配置檔案路徑（預設：config.yaml）
+  - 指定監聽埠口與轉發目標的 YAML 設定檔
 - `-d, --debug`：啟用除錯日誌
+  - **預設模式**：只顯示基本啟動/關閉訊息（info 等級）
+  - **debug模式**：顯示詳細運行訊息，包括每筆 OSC 訊息的接收與轉發過程（debug 等級）
+  - **輸出位置**：控制台顯示訊息（不存檔案）
 - `-h, --help`：顯示說明資訊
 
 ### osc-send-all
