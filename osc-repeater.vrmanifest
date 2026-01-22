@@ -5,7 +5,7 @@
 			"app_key": "osc.repeater",
 			"launch_type": "binary",
 			"binary_path_windows": "osc-repeater.exe",
-			"is_dashboard_overlay": false,
+			"is_dashboard_overlay": true,
 
 			"strings": {
 				"en_us": {
@@ -20,3 +20,4 @@
 		}
 	]
 }
+
